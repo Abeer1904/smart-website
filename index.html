@@ -186,6 +186,48 @@ p{color:var(--muted);margin:0 0 18px 0}
     width:100%;
   }
 }
+
+@media(max-width:480px){
+  .circle{
+    padding:10px;
+    gap:8px;
+  }
+  .circle-center{
+    width:120px;
+    height:120px;
+    font-size:12px;
+    padding:10px;
+  }
+  .circle-step{
+    font-size:11px;
+    padding:8px 8px;
+    border-radius:10px;
+    width:100%;
+  }
+}
+
+/* Scale Statement & Metrics Combined */
+section.scale-statement-metrics {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: #fff;
+}
+
+.scale-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+@media (max-width: 700px) {
+  .scale-metrics {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
 </style>
 </head>
 
@@ -217,55 +259,28 @@ p{color:var(--muted);margin:0 0 18px 0}
   </div>
 </section>
 
-<!-- Scale Statement -->
-<section style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:#ffffff;">
-  <div class="wrap" style="text-align:center; padding:clamp(40px,6vw,70px) var(--pad);">
-    <p style="font-size:clamp(18px,2.5vw,22px); color:var(--text); max-width:850px; margin:0 auto; line-height:1.6;">
-      SMART weaves together a network of over 400 community radio stations — 400 hyperlocal institutions of trust, rooted in 400 communities, reaching more than 120 million people.
-    </p>
-  </div>
-</section>
-
-<!-- Scale Metrics -->
-<section style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:#ffffff;">
-  <div class="wrap" style="padding:clamp(50px,7vw,80px) var(--pad);">
-    
-    <div style="
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:40px;
-      text-align:center;
-    ">
-
-      <div>
-        <div style="font-size:clamp(32px,5vw,48px); font-weight:700; color:var(--text);">
-          400+
-        </div>
-        <div style="color:var(--muted); font-size:14px;">
-          Community Radio Stations
-        </div>
-      </div>
-
-      <div>
-        <div style="font-size:clamp(32px,5vw,48px); font-weight:700; color:var(--text);">
-          400
-        </div>
-        <div style="color:var(--muted); font-size:14px;">
-          Hyperlocal Communities
-        </div>
-      </div>
-
-      <div>
-        <div style="font-size:clamp(32px,5vw,48px); font-weight:700; color:var(--text);">
-          120M+
-        </div>
-        <div style="color:var(--muted); font-size:14px;">
-          People Reached
-        </div>
-      </div>
-
+<!-- Scale Statement & Metrics Combined -->
+<section class="scale-statement-metrics">
+  <div class="wrap" style="padding:clamp(40px,6vw,70px) var(--pad);">
+    <div style="text-align:center; margin-bottom:32px;">
+      <p style="font-size:clamp(18px,2.5vw,22px); color:var(--text); max-width:850px; margin:0 auto; line-height:1.6;">
+        SMART weaves together a network of over
+      </p>
     </div>
-
+    <div class="scale-metrics">
+      <div>
+        <div style="font-size:clamp(32px,5vw,48px); font-weight:700; color:var(--text);">400+</div>
+        <div style="color:var(--muted); font-size:14px;">Community Radio Stations</div>
+      </div>
+      <div>
+        <div style="font-size:clamp(32px,5vw,48px); font-weight:700; color:var(--text);">400</div>
+        <div style="color:var(--muted); font-size:14px;">Hyperlocal Communities</div>
+      </div>
+      <div>
+        <div style="font-size:clamp(32px,5vw,48px); font-weight:700; color:var(--text);">120M+</div>
+        <div style="color:var(--muted); font-size:14px;">People Reached</div>
+      </div>
+    </div>
   </div>
 </section>
 
