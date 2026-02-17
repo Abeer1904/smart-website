@@ -35,10 +35,41 @@ header{
 }
 
 .nav a{
-  margin-right:16px;
+  position:relative;
+  margin-right:20px;
   text-decoration:none;
   color:var(--muted);
   font-size:14px;
+  padding-bottom:6px;
+  transition:color 0.2s ease;
+}
+
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0%;
+  height:2px;
+  background:#c62828; /* red */
+  transition:width 0.3s ease;
+}
+
+.nav a:hover{
+  color:var(--text);
+}
+
+.nav a:hover::after{
+  width:100%;
+}
+
+/* Active page highlight */
+.nav a.active::after{
+  width:100%;
+}
+
+.nav a.active{
+  color:var(--text);
 }
 
 section{
@@ -92,6 +123,7 @@ p{
 <header>
   <nav class="nav">
     <a href="index.html">Home</a>
+    <a href="about.html" class="active">About Us</a>
     <a href="community-media-ecosystem.html">Ecosystem</a>
     <a href="community-media-alliance.html">Alliance</a>
     <a href="programmes.html">Programmes</a>
