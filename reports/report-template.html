@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Report Title | SMART Research</title>
+  <meta name="description" content="Executive summary and reading options for SMART research report." />
+
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b0f18; --muted:#4a5568; --subtle:#6b7280;
+      --border:#e5e7eb; --soft:#f7f7fb; --soft2:#f3f4f6;
+      --radius:18px; --shadow2:0 8px 22px rgba(15,23,42,.08);
+      --max:1160px; --pad:clamp(18px,4vw,40px);
+      --font:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:var(--font); color:var(--text); background:var(--bg); line-height:1.55;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad);}
+    header{border-bottom:1px solid var(--border); background:rgba(255,255,255,.92); backdrop-filter:blur(10px); position:sticky; top:0; z-index:10;}
+    header .inner{max-width:var(--max); margin:0 auto; padding:14px var(--pad); display:flex; justify-content:space-between; align-items:center; gap:14px;}
+    a{color:inherit}
+    .nav a{color:var(--muted); text-decoration:none; font-size:14px; padding:8px 10px; border-radius:10px;}
+    .nav a:hover{background:var(--soft2); color:var(--text);}
+    main{padding:clamp(24px,5vw,56px) 0;}
+    .kicker{text-transform:uppercase; letter-spacing:.12em; font-size:12px; color:var(--subtle); margin:0 0 10px 0;}
+    h1{font-size:clamp(26px,3.4vw,40px); line-height:1.15; margin:0 0 10px 0; letter-spacing:-.02em;}
+    p{margin:0 0 12px 0; color:var(--muted); font-size:16px;}
+    .grid{display:grid; grid-template-columns: 1fr 0.9fr; gap:18px; align-items:start; margin-top:18px;}
+    @media (max-width: 920px){ .grid{grid-template-columns:1fr;} }
+
+    .card{border:1px solid var(--border); border-radius:var(--radius); background:#fff; box-shadow:var(--shadow2); padding:16px;}
+    .btnrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
+    .btn{display:inline-flex; align-items:center; justify-content:center; padding:9px 12px; border-radius:12px; border:1px solid var(--border); background:var(--soft); color:var(--text); text-decoration:none; font-size:13.5px; font-weight:650;}
+    .btn.primary{background:#111827; border-color:#111827; color:#fff;}
+    .btn:hover{background:var(--soft2);}
+    .btn.primary:hover{filter:brightness(.96);}
+
+    /* Reader placeholder */
+    .reader{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--soft2);
+      overflow:hidden;
+      min-height:520px;
+      display:grid;
+      place-items:center;
+      color:var(--subtle);
+      text-align:center;
+      padding:18px;
+    }
+
+    /* Chapter list */
+    .chapters a{
+      display:block;
+      padding:10px 10px;
+      border-radius:12px;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .chapters a:hover{background:var(--soft);}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <div style="font-weight:750;">SMART Research</div>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="../research.html">Back to Research</a>
+      <a href="../programmes.html">Programmes</a>
+      <a href="#">Partner</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="kicker">Report</p>
+    <h1>Report Title (Replace)</h1>
+    <p>One paragraph describing what the report is, who it is for, and what it helps implementors or partners do.</p>
+
+    <div class="grid">
+      <section class="card" aria-label="Executive summary and chapter summaries">
+        <h2 style="margin:0 0 10px 0; font-size:18px;">Executive summary</h2>
+        <p>Short executive summary goes here. Keep it tight and practical.</p>
+
+        <h3 style="margin:16px 0 8px 0; font-size:15px;">Chapter summaries</h3>
+        <div class="chapters">
+          <a href="#chapter-1">Chapter 1: Title</a>
+          <a href="#chapter-2">Chapter 2: Title</a>
+          <a href="#chapter-3">Chapter 3: Title</a>
+          <a href="#chapter-4">Chapter 4: Title</a>
+        </div>
+
+        <div class="btnrow">
+          <a class="btn primary" href="#" aria-disabled="true">Download PDF (later)</a>
+          <a class="btn" href="#reader">Read on page</a>
+        </div>
+      </section>
+
+      <aside class="card" aria-label="Report metadata">
+        <h2 style="margin:0 0 10px 0; font-size:18px;">Report details</h2>
+        <p style="margin:0 0 10px 0;"><strong>Type:</strong> Manual / Toolkit / Curriculum / Report</p>
+        <p style="margin:0 0 10px 0;"><strong>Theme:</strong> (e.g., Climate / Media Literacy)</p>
+        <p style="margin:0 0 10px 0;"><strong>Year:</strong> (optional)</p>
+        <p style="margin:0;"><strong>Audience:</strong> Community media stations, partners, funders</p>
+      </aside>
+    </div>
+
+    <!-- Option A: PDF Reader embed (later) -->
+    <!--
+    <section class="card" id="reader" style="margin-top:18px;">
+      <h2 style="margin:0 0 12px 0; font-size:18px;">Read the report</h2>
+      <iframe src="../assets/reports/your-report.pdf" style="width:100%; height:80vh; border:1px solid var(--border); border-radius:14px;"></iframe>
+    </section>
+    -->
+
+    <!-- Option B: Scrollable sectioned “encyclopedia” page (placeholder) -->
+    <section class="card" id="reader" style="margin-top:18px;">
+      <h2 style="margin:0 0 12px 0; font-size:18px;">Read on page</h2>
+      <div class="reader">
+        Placeholder: sectioned, scrollable chapters with anchored headings and a linked table of contents.
+      </div>
+    </section>
+
+    <!-- Chapter anchors (placeholders) -->
+    <section class="card" id="chapter-1" style="margin-top:18px;">
+      <h2 style="margin:0 0 8px 0; font-size:18px;">Chapter 1: Title</h2>
+      <p>Chapter content placeholder.</p>
+    </section>
+
+    <section class="card" id="chapter-2" style="margin-top:18px;">
+      <h2 style="margin:0 0 8px 0; font-size:18px;">Chapter 2: Title</h2>
+      <p>Chapter content placeholder.</p>
+    </section>
+
+  </div>
+</main>
+
+</body>
+</html>

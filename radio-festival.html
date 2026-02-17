@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Radio Festival | SMART Verticals</title>
+
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b0f18; --muted:#4a5568; --subtle:#6b7280;
+      --border:#e5e7eb; --soft:#f7f7fb; --soft2:#f3f4f6;
+      --radius:18px; --shadow:0 8px 22px rgba(15,23,42,.08);
+      --max:1160px; --pad:clamp(18px,4vw,40px);
+      --font:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.5}
+
+    .topbar{border-bottom:1px solid var(--border);background:rgba(255,255,255,.92);backdrop-filter:blur(10px);position:sticky;top:0;z-index:20}
+    .topbar .inner{max-width:var(--max);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:750}
+    .brand .dot{width:10px;height:10px;border-radius:50%;background:#111827;box-shadow:0 0 0 4px rgba(17,24,39,.10)}
+    .nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+    .nav a,.nav button{color:var(--muted);text-decoration:none;font-size:14px;padding:8px 10px;border-radius:10px;background:transparent;border:0;cursor:pointer}
+    .nav a:hover,.nav button:hover{background:var(--soft2);color:var(--text)}
+    .dropdown{position:relative}
+    .menu{position:absolute;right:0;top:38px;min-width:220px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:8px;display:none;z-index:50}
+    .menu a{display:block;padding:10px 10px;border-radius:12px;color:var(--text)}
+    .menu a:hover{background:var(--soft)}
+    .dropdown:focus-within .menu,.dropdown:hover .menu{display:block}
+
+    .hamburger{display:none;flex-direction:column;gap:6px;background:transparent;border:0;cursor:pointer;padding:8px 10px;}
+    .hamburger span{width:24px;height:2px;background:var(--text);transition:0.3s;}
+    @media(max-width:768px){
+      .hamburger{display:flex;}
+      .topbar .nav{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);flex-direction:column;padding:16px var(--pad);gap:8px;z-index:40;}
+      .topbar .nav.active{display:flex;}
+      .topbar .nav a, .topbar .nav button{padding:12px;font-size:15px;}
+      .topbar .nav > div{position:relative;}
+      .topbar .nav > div > div[role="menu"]{position:static;background:transparent;border:none;box-shadow:none;padding:0 0 0 16px;margin-top:8px;display:none;}
+      .topbar .nav > div.active > div[role="menu"]{display:flex;flex-direction:column;}
+      p{font-size:clamp(14px,4vw,16px);}
+      label{font-size:14px;}
+      input, select, textarea{font-size:15px;padding:12px 14px;}
+      section{padding:clamp(24px,5vw,50px) 0;}
+    }
+    @media(max-width:480px){
+      section{padding:clamp(20px,5vw,36px) 0;}
+      h1{font-size:clamp(24px,3.5vw,32px);}
+      p{font-size:15px;}
+    }
+
+    section{padding:clamp(34px,6vw,70px) 0}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+    .kicker{text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--subtle);margin:0 0 10px 0}
+    h1{font-size:clamp(30px,4vw,46px);line-height:1.12;margin:0 0 14px 0;letter-spacing:-.02em}
+    h2{font-size:clamp(22px,2.6vw,30px);margin:0 0 12px 0}
+    p{margin:0 0 12px 0;color:var(--muted);font-size:16px}
+    .lead{font-size:18px;max-width:80ch}
+
+    .hero{background:linear-gradient(180deg,#f8fafc 0%,#fff 70%);border-bottom:1px solid var(--border);padding-top:clamp(34px,6vw,72px)}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(16px,3vw,28px);align-items:stretch}
+    @media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+
+    .hero-card{border:1px solid var(--border);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .hero-media{
+      aspect-ratio:16/10;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(17,24,39,0.06), transparent 55%),
+        radial-gradient(circle at 70% 80%, rgba(17,24,39,0.05), transparent 50%),
+        var(--soft2);
+      display:grid;place-items:center;border-bottom:1px solid var(--border);
+      padding:18px;color:var(--subtle);text-align:center
+    }
+    .hero-meta{padding:14px 16px 16px;display:grid;gap:10px}
+    .meta-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .pill{border:1px solid var(--border);border-radius:14px;padding:10px 12px;background:var(--soft)}
+    .pill .num{font-weight:800;color:var(--text)}
+    .pill .lbl{font-size:13px;color:var(--subtle);margin-top:2px}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:620px){.grid{grid-template-columns:1fr}}
+    .card{border:1px solid var(--border);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);padding:18px;display:grid;gap:8px;min-height:142px}
+    .card h3{margin:0;font-size:16px}
+    .card p{margin:0;color:var(--muted);font-size:14.5px}
+
+    .strip{background:var(--soft);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .panel{border:1px solid var(--border);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);padding:18px;margin-top:18px}
+
+    .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none;font-size:13.5px;font-weight:650}
+    .btn.primary{background:#111827;color:#fff;border-color:#111827}
+
+    footer{border-top:1px solid var(--border);padding:22px 0;background:#fff}
+    footer .inner{max-width:var(--max);margin:0 auto;padding:0 var(--pad);color:var(--subtle);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  </style>
+</head>
+
+<body>
+<header class="topbar">
+  <div class="inner">
+    <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span><span>SMART</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" aria-label="Primary navigation">igation">
+      <a href="index.html">Home</a>
+      <a href="community-media-ecosystem.html">Community Media Ecosystem</a>
+      <a href="programmes.html">Programmes</a>
+      <a href="research.html">Research</a>
+      <a href="community-media-alliance.html">Community Media Alliance</a>
+
+      <div class="dropdown" id="verticalsDropdown">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Verticals</button>
+        <div class="menu" role="menu" aria-label="Verticals">
+          <a role="menuitem" href="radio-mewat.html">Radio Mewat</a>
+          <a role="menuitem" href="civic-games-lab.html">Civic Games Lab</a>
+          <a role="menuitem" href="radio-festival.html" style="background:var(--soft);">The Radio Festival</a>
+        </div>
+      </div>
+
+      <a href="partner.html">Partner</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="kicker">Vertical • Convening & sector-building</p>
+        <h1>The Radio Festival</h1>
+        <p class="lead">
+          The Radio Festival is an independent vertical within SMART. It convenes the community media sector to build visibility, collaboration, shared practice, and institutional legitimacy.
+        </p>
+      </div>
+
+      <aside class="hero-card" aria-label="Hero visual and snapshot">
+        <div class="hero-media">
+          Placeholder: highlight reel loop (stage, sessions, networking, exhibitions).
+        </div>
+        <div class="hero-meta">
+          <div class="meta-row">
+            <div class="pill"><div class="num">Annual convening</div><div class="lbl">Sector-wide participation</div></div>
+            <div class="pill"><div class="num">Community media</div><div class="lbl">Public, private, CRS</div></div>
+          </div>
+          <div class="meta-row">
+            <div class="pill"><div class="num">Learning</div><div class="lbl">Practice exchange</div></div>
+            <div class="pill"><div class="num">Legitimacy</div><div class="lbl">Institutional visibility</div></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker">What it does</p>
+    <h2>Festival functions</h2>
+    <p class="lead">This page is a vertical profile. The Festival is a sector-building instrument that complements programme execution and research.</p>
+
+    <div class="grid" role="list">
+      <div class="card" role="listitem"><h3>Convening</h3><p>Brings community media actors together for agenda-setting and collaboration.</p></div>
+      <div class="card" role="listitem"><h3>Practice exchange</h3><p>Showcases methods, formats, toolkits, and approaches that stations can adopt.</p></div>
+      <div class="card" role="listitem"><h3>Visibility</h3><p>Creates institutional visibility for a sector that is often overlooked.</p></div>
+      <div class="card" role="listitem"><h3>Partnership bridge</h3><p>Creates contact surfaces between funders, industry, academia, and practitioners.</p></div>
+      <div class="card" role="listitem"><h3>Standards</h3><p>Supports the spread of SOPs and shared reporting norms across the ecosystem.</p></div>
+      <div class="card" role="listitem"><h3>Future directions</h3><p>Hosts future-facing conversations on tech, content, trust, and sector resilience.</p></div>
+    </div>
+
+    <div class="panel">
+      <h2>External link</h2>
+      <div class="cta">
+        <a class="btn primary" href="https://theradiofestival.com" target="_blank" rel="noopener">Visit theradiofestival.com</a>
+        <a class="btn" href="partner.html">Partner via SMART</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="strip">
+  <div class="wrap">
+    <p class="kicker">How it plugs into SMART</p>
+    <h2>Why the Festival exists inside the umbrella</h2>
+
+    <div class="grid" role="list">
+      <div class="card" role="listitem"><h3>Strengthens ecosystem legitimacy</h3><p>Builds collective identity and reduces fragmentation in community media.</p></div>
+      <div class="card" role="listitem"><h3>Accelerates adoption</h3><p>Moves innovations (formats, tools, SOPs) across stations faster than bilateral work.</p></div>
+      <div class="card" role="listitem"><h3>Creates funder surfaces</h3><p>Offers a structured gateway for partners to engage a distributed network.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <div>© <span id="year"></span> SMART</div>
+    <div>Vertical • The Radio Festival</div>
+  </div>
+</footer>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+
+<script>
+const hamburger=document.getElementById('hamburger');const nav=document.getElementById('nav');const verticalsDropdown=document.getElementById('verticalsDropdown');if(hamburger){hamburger.addEventListener('click',()=>{nav.classList.toggle('active');hamburger.setAttribute('aria-expanded',hamburger.getAttribute('aria-expanded')==='false'?'true':'false');});nav.querySelectorAll('a').forEach(link=>{link.addEventListener('click',()=>{nav.classList.remove('active');hamburger.setAttribute('aria-expanded','false');});});if(verticalsDropdown){const button=verticalsDropdown.querySelector('button');button.addEventListener('click',(e)=>{if(window.innerWidth<=768){e.preventDefault();verticalsDropdown.classList.toggle('active');}});}};
+</script>
+</body>
+</html>

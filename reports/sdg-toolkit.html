@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SDG Toolkit | SMART Research</title>
+
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b0f18; --muted:#4a5568; --subtle:#6b7280;
+      --border:#e5e7eb; --soft:#f7f7fb; --soft2:#f3f4f6;
+      --radius:18px; --shadow:0 8px 22px rgba(15,23,42,.08);
+      --max:1100px; --pad:clamp(18px,4vw,40px);
+      --font:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:var(--font); color:var(--text); background:var(--bg); line-height:1.6;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad);}
+    header{border-bottom:1px solid var(--border); padding:16px 0;}
+    header a{text-decoration:none; color:var(--muted); font-size:14px;}
+    main{padding:40px 0;}
+    h1{font-size:32px; margin:0 0 12px 0;}
+    p{color:var(--muted); font-size:16px; margin:0 0 14px 0;}
+
+    .grid{display:grid; grid-template-columns:1.3fr .7fr; gap:20px;}
+    @media(max-width:900px){.grid{grid-template-columns:1fr;}}
+
+    .card{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:var(--shadow);
+      background:#fff;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:var(--soft);
+      text-decoration:none;
+      color:var(--text);
+      font-size:14px;
+      margin-top:12px;
+    }
+    .btn.primary{
+      background:#111827;
+      color:#fff;
+      border-color:#111827;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="../research.html">← Back to Research</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <h1>SDG Toolkit</h1>
+    <p>
+      The SDG Toolkit is designed to help community media organisations align programming
+      with Sustainable Development Goals while retaining hyperlocal relevance.
+    </p>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Executive Summary</h2>
+        <p>
+          This toolkit translates SDG frameworks into implementable broadcast and
+          narrowcast strategies for community radio. It provides SOPs, sample scripts,
+          monitoring templates, and engagement structures that allow stations to
+          produce measurable development outcomes.
+        </p>
+
+        <h3>Key Sections</h3>
+        <ul>
+          <li>Understanding SDGs in local governance contexts</li>
+          <li>Mapping SDGs to radio formats</li>
+          <li>Community engagement models</li>
+          <li>Monitoring and reporting templates</li>
+        </ul>
+
+        <a class="btn primary" href="#">Download PDF (Add later)</a>
+      </section>
+
+      <aside class="card">
+        <h2>Report Details</h2>
+        <p><strong>Type:</strong> Toolkit</p>
+        <p><strong>Theme:</strong> Governance & Development</p>
+        <p><strong>Audience:</strong> Community Media Stations</p>
+        <p><strong>Geography:</strong> India & South Asia</p>
+      </aside>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>

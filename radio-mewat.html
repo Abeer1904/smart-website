@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Radio Mewat | SMART Verticals</title>
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0b0f18;
+      --muted:#4a5568;
+      --subtle:#6b7280;
+      --border:#e5e7eb;
+      --soft:#f7f7fb;
+      --soft2:#f3f4f6;
+      --radius:18px;
+      --shadow:0 8px 22px rgba(15,23,42,.08);
+      --max:1160px;
+      --pad:clamp(18px,4vw,40px);
+      --font:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.5;
+    }
+
+    /* Header / Nav */
+    .topbar{
+      border-bottom:1px solid var(--border);
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(10px);
+      position:sticky; top:0; z-index:20;
+    }
+    .topbar .inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px var(--pad);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none; color:var(--text);
+      font-weight:750;
+    }
+    .brand .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:#111827;
+      box-shadow:0 0 0 4px rgba(17,24,39,.10);
+    }
+    .nav{
+      display:flex; align-items:center; gap:12px;
+      flex-wrap:wrap; justify-content:flex-end;
+    }
+    .nav a,.nav button{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:14px;
+      padding:8px 10px;
+      border-radius:10px;
+      background:transparent;
+      border:0;
+      cursor:pointer;
+    }
+    .nav a:hover,.nav button:hover{background:var(--soft2); color:var(--text);}
+    .dropdown{position:relative;}
+    .menu{
+      position:absolute; right:0; top:38px;
+      min-width:220px;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      padding:8px;
+      display:none;
+      z-index:50;
+    }
+    .menu a{
+      display:block;
+      padding:10px 10px;
+      border-radius:12px;
+      color:var(--text);
+    }
+    .menu a:hover{background:var(--soft);}
+    .dropdown:focus-within .menu,
+    .dropdown:hover .menu{display:block;}
+
+    /* Layout */
+    section{padding:clamp(34px,6vw,70px) 0;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad);}
+
+    .kicker{
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:12px;
+      color:var(--subtle);
+      margin:0 0 10px 0;
+    }
+    h1{
+      font-size:clamp(30px,4vw,46px);
+      line-height:1.12;
+      margin:0 0 14px 0;
+      letter-spacing:-.02em;
+    }
+    h2{
+      font-size:clamp(22px,2.6vw,30px);
+      margin:0 0 12px 0;
+    }
+    p{margin:0 0 12px 0; color:var(--muted); font-size:16px;}
+    .lead{font-size:18px; max-width:80ch;}
+
+    .hero{
+      background:linear-gradient(180deg,#f8fafc 0%,#fff 70%);
+      border-bottom:1px solid var(--border);
+      padding-top:clamp(34px,6vw,72px);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:clamp(16px,3vw,28px);
+      align-items:stretch;
+    }
+    @media(max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+
+    .hero-card{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+    .hero-media{
+      aspect-ratio:16/10;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(17,24,39,0.06), transparent 55%),
+        radial-gradient(circle at 70% 80%, rgba(17,24,39,0.05), transparent 50%),
+        var(--soft2);
+      display:grid;
+      place-items:center;
+      border-bottom:1px solid var(--border);
+      padding:18px;
+      color:var(--subtle);
+      text-align:center;
+    }
+    .hero-meta{padding:14px 16px 16px; display:grid; gap:10px;}
+    .meta-row{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+    .pill{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:10px 12px;
+      background:var(--soft);
+    }
+    .pill .num{font-weight:800; color:var(--text);}
+    .pill .lbl{font-size:13px; color:var(--subtle); margin-top:2px;}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:18px;
+    }
+    @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:620px){.grid{grid-template-columns:1fr;}}
+
+    .card{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:var(--shadow);
+      padding:18px;
+      display:grid;
+      gap:8px;
+      min-height:142px;
+    }
+    .card h3{margin:0; font-size:16px;}
+    .card p{margin:0; color:var(--muted); font-size:14.5px;}
+
+    .strip{
+      background:var(--soft);
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+
+    .two{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      margin-top:18px;
+      align-items:start;
+    }
+    @media(max-width:900px){.two{grid-template-columns:1fr;}}
+
+    .panel{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+
+    .team{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:10px;
+    }
+    @media(max-width:620px){.team{grid-template-columns:1fr;}}
+    .person{
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:var(--soft);
+      padding:10px 12px;
+      color:var(--text);
+      font-size:14px;
+    }
+
+    .cta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:var(--soft);
+      color:var(--text);
+      text-decoration:none;
+      font-size:13.5px;
+      font-weight:650;
+    }
+    .btn.primary{
+      background:#111827;
+      color:#fff;
+      border-color:#111827;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      padding:22px 0;
+      background:#fff;
+    }
+    footer .inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 var(--pad);
+      color:var(--subtle);
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .hamburger{display:none;flex-direction:column;gap:6px;background:transparent;border:0;cursor:pointer;padding:8px 10px;}
+    .hamburger span{width:24px;height:2px;background:var(--text);transition:0.3s;}
+    @media(max-width:768px){
+      .hamburger{display:flex;}
+      .topbar .nav{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);flex-direction:column;padding:16px var(--pad);gap:8px;z-index:40;}
+      .topbar .nav.active{display:flex;}
+      .topbar .nav a, .topbar .nav button{padding:12px;font-size:15px;}
+      .topbar .nav > div{position:relative;}
+      .topbar .nav > div > div[role="menu"]{position:static;background:transparent;border:none;box-shadow:none;padding:0 0 0 16px;margin-top:8px;display:none;}
+      .topbar .nav > div.active > div[role="menu"]{display:flex;flex-direction:column;}
+      p{font-size:clamp(14px,4vw,16px);}
+      label{font-size:14px;}
+      input, select, textarea{font-size:15px;padding:12px 14px;}
+      section{padding:clamp(24px,5vw,50px) 0;}
+    }
+    @media(max-width:480px){
+      section{padding:clamp(20px,5vw,36px) 0;}
+      h1{font-size:clamp(24px,3.5vw,32px);}
+      p{font-size:15px;}
+    }
+  </style>
+</head>
+
+<body>
+<header class="topbar">
+  <div class="inner">
+    <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span><span>SMART</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" aria-label="Primary navigation">igation">
+      <a href="index.html">Home</a>
+      <a href="community-media-ecosystem.html">Community Media Ecosystem</a>
+      <a href="programmes.html">Programmes</a>
+      <a href="research.html">Research</a>
+      <a href="community-media-alliance.html">Community Media Alliance</a>
+
+      <div class="dropdown" id="verticalsDropdown">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Verticals</button>
+        <div class="menu" role="menu" aria-label="Verticals">
+          <a role="menuitem" href="radio-mewat.html" style="background:var(--soft);">Radio Mewat</a>
+          <a role="menuitem" href="civic-games-lab.html">Civic Games Lab</a>
+          <a role="menuitem" href="radio-festival.html">The Radio Festival</a>
+        </div>
+      </div>
+
+      <a href="partner.html">Partner</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="kicker">Vertical • Radio</p>
+        <h1>Radio Mewat</h1>
+        <p class="lead">
+          Radio Mewat is an independent vertical within SMART. It is a locally-rooted community radio station with its own public identity, programming, and credibility.
+        </p>
+      </div>
+
+      <aside class="hero-card" aria-label="Hero visual and snapshot">
+        <div class="hero-media">
+          Placeholder: video loop / photo montage (studio + community reporting).
+        </div>
+        <div class="hero-meta">
+          <div class="meta-row">
+            <div class="pill"><div class="num">Nuh (Mewat), Haryana</div><div class="lbl">Location</div></div>
+            <div class="pill"><div class="num">2010</div><div class="lbl">Founded</div></div>
+          </div>
+          <div class="meta-row">
+            <div class="pill"><div class="num">Community radio</div><div class="lbl">Format</div></div>
+            <div class="pill"><div class="num">Awards (MoIB)</div><div class="lbl">Recognition</div></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker">Core belief</p>
+    <h2>Why Radio Mewat exists</h2>
+    <p class="lead">
+      Placeholder: one tight paragraph on mission and core belief (to be finalised from your preferred phrasing).
+    </p>
+
+    <div class="grid" role="list">
+      <div class="card" role="listitem"><h3>Community voice</h3><p>Surfacing local priorities through trusted formats and local language programming.</p></div>
+      <div class="card" role="listitem"><h3>Public interest communication</h3><p>Translating critical themes into actionable, locally relevant information.</p></div>
+      <div class="card" role="listitem"><h3>Bridge to systems</h3><p>Creating feedback loops between communities and institutions.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="strip">
+  <div class="wrap">
+    <p class="kicker">Initiatives</p>
+    <h2>Signature initiatives</h2>
+    <p class="lead">Placeholder: list the 3–6 initiatives you want foregrounded as “Radio Mewat initiatives”, not “SMART programmes”.</p>
+
+    <div class="grid" role="list">
+      <div class="card" role="listitem"><h3>Radio Tuitions</h3><p>Placeholder description.</p></div>
+      <div class="card" role="listitem"><h3>Radio Chauपाल</h3><p>Placeholder description.</p></div>
+      <div class="card" role="listitem"><h3>Consumer Helpline</h3><p>Placeholder description.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker">Credibility</p>
+    <h2>Recognition</h2>
+    <div class="grid" role="list">
+      <div class="card" role="listitem"><h3>MoIB Award (2011)</h3><p>Most Sustainable Community Radio Station (placeholder text).</p></div>
+      <div class="card" role="listitem"><h3>MoIB Award (2012)</h3><p>Most Creative and Innovative Programming (placeholder text).</p></div>
+      <div class="card" role="listitem"><h3>Additional recognition</h3><p>Placeholder (add only if you want it listed).</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="strip">
+  <div class="wrap">
+    <p class="kicker">Team</p>
+    <h2>Team and local ownership</h2>
+
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin:0 0 8px 0; font-size:16px;">Operating model</h3>
+        <p style="margin:0; color:var(--muted); font-size:14.5px;">
+          Placeholder: one paragraph on how the station operates, local anchoring, RJs as trusted community connectors, and how it interfaces with systems.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h3 style="margin:0 0 8px 0; font-size:16px;">Team (placeholder list)</h3>
+
+        <!-- Farheen removed -->
+        <div class="team" aria-label="Team list">
+          <div class="person">Archana Kapoor</div>
+          <div class="person">Astha Singh</div>
+          <div class="person">Adil Khan</div>
+          <div class="person">Anita</div>
+          <div class="person">Ashvani Sharma</div>
+          <div class="person">Arseena</div>
+          <div class="person">Gargi Yadav</div>
+          <div class="person">Imran</div>
+          <div class="person">Imran Khan</div>
+          <div class="person">Mufeed Khan</div>
+          <div class="person">Nitika Kakkar</div>
+          <div class="person">Sunita Mishra</div>
+          <div class="person">Saman</div>
+          <div class="person">Satya Prakash</div>
+          <div class="person">Sohrab Khan</div>
+        </div>
+
+        <p style="margin-top:10px; color:var(--subtle); font-size:13px;">
+          Note: Add roles/titles once you standardise internal staff taxonomy (RJ, Producer, Technician, Community Mobiliser, Station Lead).
+        </p>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px;">
+      <h3 style="margin:0 0 8px 0; font-size:16px;">Listen</h3>
+      <p style="margin:0; color:var(--muted); font-size:14.5px;">
+        This is a placeholder for a unified listening experience across the community media ecosystem.
+        Radio Mewat programmes will appear here as streams and/or uploaded episodes.
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="listen.html?station=radio-mewat">Open player</a>
+        <a class="btn" href="listen.html">Browse by state</a>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px;">
+      <h3 style="margin:0 0 8px 0; font-size:16px;">External link</h3>
+      <div class="cta">
+        <a class="btn primary" href="https://radiomewat.org" target="_blank" rel="noopener">Visit radiomewat.org</a>
+        <a class="btn" href="partner.html">Partner via SMART</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <div>© <span id="year"></span> SMART</div>
+    <div>Vertical • Radio Mewat</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+<script>
+const hamburger=document.getElementById('hamburger');const nav=document.getElementById('nav');const verticalsDropdown=document.getElementById('verticalsDropdown');if(hamburger){hamburger.addEventListener('click',()=>{nav.classList.toggle('active');hamburger.setAttribute('aria-expanded',hamburger.getAttribute('aria-expanded')==='false'?'true':'false');});nav.querySelectorAll('a').forEach(link=>{link.addEventListener('click',()=>{nav.classList.remove('active');hamburger.setAttribute('aria-expanded','false');});});if(verticalsDropdown){const button=verticalsDropdown.querySelector('button');button.addEventListener('click',(e)=>{if(window.innerWidth<=768){e.preventDefault();verticalsDropdown.classList.toggle('active');}});}};
+</script>
+</body>
+</html>

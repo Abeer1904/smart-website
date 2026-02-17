@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SMART</title>
+  <meta name="description" content="SMART" />
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b0f18; --muted:#4a5568; --subtle:#6b7280;
+      --border:#e5e7eb; --soft:#f7f7fb; --soft2:#f3f4f6;
+      --radius:18px; --shadow:0 8px 22px rgba(15,23,42,.08);
+      --max:1160px; --pad:clamp(18px,4vw,40px);
+      --font:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:var(--font); color:var(--text); background:var(--bg); line-height:1.5;}
+
+    .topbar{
+      border-bottom:1px solid var(--border);
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(10px);
+      position:sticky; top:0; z-index:20;
+    }
+    .topbar .inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px var(--pad);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none; color:var(--text);
+      font-weight:750; letter-spacing:.2px;
+    }
+    .brand .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:#111827;
+      box-shadow:0 0 0 4px rgba(17,24,39,.10);
+    }
+
+    .nav{
+      display:flex; align-items:center; gap:12px;
+      flex-wrap:wrap; justify-content:flex-end;
+    }
+    .nav a, .nav button{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:14px;
+      padding:8px 10px;
+      border-radius:10px;
+      background:transparent;
+      border:0;
+      cursor:pointer;
+    }
+    .nav a:hover, .nav button:hover{background:var(--soft2); color:var(--text);}
+
+    /* Dropdown */
+    .dropdown{position:relative;}
+    .menu{
+      position:absolute;
+      right:0;
+      top:38px;
+      min-width:220px;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      padding:8px;
+      display:none;
+      z-index:50;
+    }
+    .menu a{
+      display:block;
+      padding:10px 10px;
+      border-radius:12px;
+      color:var(--text);
+    }
+    .menu a:hover{background:var(--soft);}
+    .dropdown:focus-within .menu,
+    .dropdown:hover .menu{display:block;}
+
+    main{padding:clamp(28px,5vw,64px) 0;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad);}
+
+    .kicker{
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:12px;
+      color:var(--subtle);
+      margin:0 0 10px 0;
+    }
+    h1{
+      font-size:clamp(28px,3.6vw,44px);
+      line-height:1.15;
+      margin:0 0 12px 0;
+      letter-spacing:-.02em;
+    }
+    p{margin:0 0 12px 0; color:var(--muted); font-size:16px;}
+    .lead{font-size:18px; max-width:80ch;}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:620px){.grid{grid-template-columns:1fr;}}
+    .tile{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:var(--shadow);
+      padding:16px;
+      text-decoration:none;
+      color:var(--text);
+      display:grid;
+      gap:8px;
+      min-height:110px;
+    }
+    .tile strong{font-size:15px;}
+    .tile span{color:var(--muted); font-size:14px;}
+    .tile:hover{background:var(--soft);}
+
+    .note{
+      margin-top:22px;
+      padding:14px 16px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--soft);
+      color:var(--muted);
+      box-shadow:var(--shadow);
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      padding:22px 0;
+      background:#fff;
+    }
+    footer .inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 var(--pad);
+      color:var(--subtle);
+      font-size:13px;
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+
+    .hamburger{display:none;flex-direction:column;gap:6px;background:transparent;border:0;cursor:pointer;padding:8px 10px;}
+    .hamburger span{width:24px;height:2px;background:var(--text);transition:0.3s;}
+
+    @media(max-width:768px){
+      .hamburger{display:flex;}
+      nav.nav{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);flex-direction:column;padding:16px var(--pad);gap:8px;z-index:40;}
+      nav.nav.active{display:flex;}
+      nav.nav a, nav.nav button{padding:12px;font-size:15px;}
+      nav.nav > div{position:relative;}
+      nav.nav > div > div[role="menu"]{position:static;background:transparent;border:none;box-shadow:none;padding:0 0 0 16px;margin-top:8px;display:none;}
+      nav.nav > div.active > div[role="menu"]{display:flex;flex-direction:column;}
+      p{font-size:clamp(14px,4vw,16px);}
+      section{padding:clamp(24px,5vw,50px) 0;}
+    }
+
+    @media(max-width:480px){
+      section{padding:clamp(20px,5vw,36px) 0;}
+      h1{font-size:clamp(24px,3.5vw,32px);}
+      p{font-size:15px;}
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="inner">
+    <a class="brand" href="index.html">
+      <span class="dot" aria-hidden="true"></span>
+      <span>SMART</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="Primary navigation">
+      <a href="index.html" aria-current="page" style="color:var(--text); background:var(--soft2);">Home</a>
+
+      <a href="community-media-ecosystem.html">Ecosystem</a>
+      <a href="community-media-alliance.html">Alliance</a>
+
+      <a href="programmes.html">Programmes</a>
+      <a href="research.html">Research</a>
+      <a href="listen.html">Listen</a>
+
+      <div class="dropdown" id="verticalsDropdown">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Verticals</button>
+        <div class="menu" role="menu" aria-label="Verticals">
+          <a role="menuitem" href="radio-mewat.html">Radio Mewat</a>
+          <a role="menuitem" href="civic-games-lab.html">Civic Games Lab</a>
+          <a role="menuitem" href="radio-festival.html">The Radio Festival</a>
+        </div>
+      </div>
+
+      <a href="partner.html">Partner</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="kicker">Home</p>
+    <h1>SMART</h1>
+    <p class="lead">This homepage is intentionally minimal while the site architecture is being built. The Community Media Ecosystem page is the primary entry point for now.</p>
+
+    <div class="grid" aria-label="Primary routes">
+      <a class="tile" href="community-media-ecosystem.html">
+        <strong>Community Media Ecosystem</strong>
+        <span>Primary entry point and institutional framing.</span>
+      </a>
+      <a class="tile" href="programmes.html">
+        <strong>Programmes</strong>
+        <span>Themes, working groups, and projects.</span>
+      </a>
+      <a class="tile" href="research.html">
+        <strong>Research</strong>
+        <span>Reports, manuals, curricula, and knowledge products.</span>
+      </a>
+      <a class="tile" href="community-media-alliance.html">
+        <strong>Community Media Alliance</strong>
+        <span>Global South alliance of community media practitioners.</span>
+      </a>
+    </div>
+
+    <div class="note">
+      If you want this page to behave like a hard redirect, you can add a meta refresh in the head:
+      <code style="display:block; margin-top:8px; color:#111827;">&lt;meta http-equiv="refresh" content="0; url=community-media-ecosystem.html"&gt;</code>
+      Leave it off for now if you want people to choose a route.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="inner">
+    <div>© <span id="year"></span> SMART</div>
+    <div>Build-first version of the site structure.</div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const nav = document.getElementById('nav');
+const verticalsDropdown = document.getElementById('verticalsDropdown');
+
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    nav.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', hamburger.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');
+  });
+
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  if (verticalsDropdown) {
+    const verticalsButton = verticalsDropdown.querySelector('button');
+    verticalsButton.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        verticalsDropdown.classList.toggle('active');
+      }
+    });
+  }
+}
+</script>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

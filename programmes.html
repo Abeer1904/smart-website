@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Programmes | SMART</title>
+  <meta name="description" content="SMART programmes organised as thematic working groups." />
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0b0f18;
+      --muted:#4a5568;
+      --subtle:#6b7280;
+      --border:#e5e7eb;
+      --soft:#f7f7fb;
+      --soft2:#f3f4f6;
+      --card:#ffffff;
+      --radius:18px;
+      --shadow:0 12px 32px rgba(15,23,42,.08);
+      --shadow2:0 8px 22px rgba(15,23,42,.08);
+      --max:1160px;
+      --pad:clamp(18px,4vw,40px);
+      --font:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.5;
+    }
+
+    /* Optional top nav (replace with your site header if you have one) */
+    .topbar{
+      border-bottom:1px solid var(--border);
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(10px);
+      position:sticky; top:0; z-index:20;
+    }
+    .topbar .inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px var(--pad);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none; color:var(--text);
+      font-weight:750; letter-spacing:.2px;
+    }
+    .brand .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:#111827;
+      box-shadow:0 0 0 4px rgba(17,24,39,.10);
+    }
+    .nav{display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end;}
+    .nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:14px;
+      padding:8px 10px;
+      border-radius:10px;
+    }
+    .nav a:hover{background:var(--soft2); color:var(--text);}
+
+    main{padding:clamp(28px,5vw,64px) 0;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad);}
+
+    .kicker{
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:12px;
+      color:var(--subtle);
+      margin:0 0 10px 0;
+    }
+    h1{
+      font-size:clamp(28px,3.6vw,44px);
+      line-height:1.15;
+      margin:0 0 12px 0;
+      letter-spacing:-.02em;
+    }
+    p{margin:0 0 12px 0; color:var(--muted); font-size:16px;}
+    .lead{font-size:18px; max-width:78ch;}
+
+    /* Layout */
+    .header-block{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+      padding-bottom:18px;
+      border-bottom:1px solid var(--border);
+      margin-bottom:22px;
+    }
+
+    /* Collapsibles */
+    .accordion{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    details.theme{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:var(--card);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:18px 18px;
+      display:flex;
+      align-items:flex-start;
+      gap:14px;
+      user-select:none;
+    }
+    summary::-webkit-details-marker{display:none;}
+
+    .theme-title{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width:0;
+      flex:1;
+    }
+    .theme-title h2{
+      margin:0;
+      font-size:18px;
+      letter-spacing:-.01em;
+      color:var(--text);
+    }
+    .theme-title .meta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      color:var(--subtle);
+      font-size:13px;
+    }
+
+    .chip{
+      border:1px solid var(--border);
+      background:var(--soft);
+      padding:6px 10px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+
+    .chev{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:var(--soft);
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+      color:var(--subtle);
+      transition:transform .15s ease;
+    }
+    details[open] .chev{transform:rotate(180deg);}
+
+    .theme-body{
+      border-top:1px solid var(--border);
+      padding:16px 18px 18px 18px;
+      background:linear-gradient(180deg, #ffffff 0%, #fbfbfe 100%);
+    }
+
+    .body-grid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .body-grid{grid-template-columns:1fr;}
+    }
+
+    .body-card{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:0 6px 14px rgba(15,23,42,.06);
+      padding:14px;
+    }
+    .body-card h3{
+      margin:0 0 8px 0;
+      font-size:15px;
+      letter-spacing:-.01em;
+      color:var(--text);
+    }
+    .body-card p{
+      margin:0;
+      font-size:14.5px;
+      color:var(--muted);
+    }
+
+    .project-list{
+      margin:10px 0 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .project{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px 12px;
+      background:var(--soft);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .project a{
+      color:var(--text);
+      text-decoration:none;
+      font-weight:650;
+      font-size:14.5px;
+      min-width:0;
+    }
+    .project a:hover{text-decoration:underline;}
+    .project small{
+      color:var(--subtle);
+      font-size:12.5px;
+      white-space:nowrap;
+    }
+
+    .aside-points{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      font-size:14.5px;
+    }
+    .aside-points li{margin:8px 0;}
+
+    /* Footer */
+    footer{
+      border-top:1px solid var(--border);
+      padding:24px 0;
+      background:#fff;
+    }
+    footer .inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 var(--pad);
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      color:var(--subtle);
+      font-size:13px;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" style="display:none;flex-direction:column;gap:6px;background:transparent;border:0;cursor:pointer;padding:8px 10px;position:fixed;right:var(--pad);top:14px;z-index:21;"><span style="width:24px;height:2px;background:var(--text);"></span><span style="width:24px;height:2px;background:var(--text);"></span><span style="width:24px;height:2px;background:var(--text);"></span></button>
+  <style>
+    .hamburger span{transition:0.3s;}
+    @media(max-width:768px){
+      .hamburger{display:flex !important;}
+      .topbar .nav{display:none !important;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);flex-direction:column;padding:16px var(--pad);gap:8px;z-index:40;}
+      .topbar .nav.active{display:flex !important;}
+      .topbar .nav a, .topbar .nav button{padding:12px;font-size:15px;}
+      .topbar .nav > div{position:relative;}
+      .topbar .nav > div > div[role="menu"]{position:static;background:transparent;border:none;box-shadow:none;padding:0 0 0 16px;margin-top:8px;display:none;}
+      .topbar .nav > div.active > div[role="menu"]{display:flex;flex-direction:column;}
+      p{font-size:clamp(14px,4vw,16px);}
+      label{font-size:14px;}
+      input, select, textarea{font-size:15px;padding:12px 14px;}
+      section{padding:clamp(24px,5vw,50px) 0;}
+    }
+    @media(max-width:480px){
+      section{padding:clamp(20px,5vw,36px) 0;}
+      h1{font-size:clamp(24px,3.5vw,32px);}
+      p{font-size:15px;}
+    }
+  </style>
+  <header class="topbar">
+    <div class="inner">
+      <a class="brand" href="index.html">
+        <span class="dot" aria-hidden="true"></span>
+        <span>SMART</span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+
+        <a href="community-media-ecosystem.html">Ecosystem</a>
+        <a href="community-media-alliance.html">Alliance</a>
+
+        <a href="programmes.html" aria-current="page" style="color:var(--text); background:var(--soft2);">Programmes</a>
+        <a href="research.html">Research</a>
+        <a href="listen.html">Listen</a>
+
+      <div class="dropdown" id="verticalsDropdown">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Verticals</button>
+        <div class="menu" role="menu" aria-label="Verticals">
+            <a role="menuitem" href="radio-mewat.html">Radio Mewat</a>
+            <a role="menuitem" href="civic-games-lab.html">Civic Games Lab</a>
+            <a role="menuitem" href="radio-festival.html">The Radio Festival</a>
+          </div>
+        </div>
+
+        <a href="partner.html">Partner</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="header-block">
+        <p class="kicker">Programmes</p>
+        <h1>Themes and working groups</h1>
+        <p class="lead">
+          SMART organises programmes through thematic working groups. Each working group is a SMART-led project that is designed, governed, and implemented through independent community media partners, with clear outputs, outcomes, and publishable learning.
+        </p>
+      </div>
+
+      <section class="accordion" aria-label="Thematic working groups">
+
+        <!-- 1) GBV -->
+        <details class="theme">
+          <summary>
+            <div class="theme-title">
+              <h2>Gender-Based Violence and Equity</h2>
+              <div class="meta">
+                <span class="chip">Working group</span>
+                <span class="chip">Trusted campaigns</span>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+
+          <div class="theme-body">
+            <div class="body-grid">
+              <div class="body-card">
+                <h3>Projects under this theme</h3>
+                <ul class="project-list">
+                  <li class="project">
+                    <a href="#" title="Open working group page">Hinsa Ko No</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="body-card">
+                <h3>Working group page template will include</h3>
+                <ul class="aside-points">
+                  <li>Programme aims, vision, and structure.</li>
+                  <li>Community media partners and implementation approach.</li>
+                  <li>Intervention style (broadcast + narrowcast + activation).</li>
+                  <li>Outputs and outcomes, and who funded it.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 2) Nutrition -->
+        <details class="theme">
+          <summary>
+            <div class="theme-title">
+              <h2>Nutrition</h2>
+              <div class="meta">
+                <span class="chip">Working group</span>
+                <span class="chip">Behaviour change</span>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+
+          <div class="theme-body">
+            <div class="body-grid">
+              <div class="body-card">
+                <h3>Projects under this theme</h3>
+                <ul class="project-list">
+                  <li class="project">
+                    <a href="#" title="Open working group page">Poshan ki Potli</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                  <li class="project">
+                    <a href="#" title="Open working group page">Poshan Ghar</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="body-card">
+                <h3>What gets published</h3>
+                <p>
+                  Each working group is documented with standardised reporting, learnings, and publication-ready outputs for stations and partners.
+                </p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 3) Health & Sanitation -->
+        <details class="theme">
+          <summary>
+            <div class="theme-title">
+              <h2>Health &amp; Sanitation</h2>
+              <div class="meta">
+                <span class="chip">Working group</span>
+                <span class="chip">Public health</span>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+
+          <div class="theme-body">
+            <div class="body-grid">
+              <div class="body-card">
+                <h3>Projects under this theme</h3>
+                <ul class="project-list">
+                  <li class="project">
+                    <a href="#" title="Open working group page">Sehat Sahi Laabh Kayi</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                  <li class="project">
+                    <a href="#" title="Open working group page">TB Mukt Bharat</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                  <li class="project">
+                    <a href="#" title="Open working group page">Filaria</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                  <li class="project">
+                    <a href="#" title="Open working group page">MCNH</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                  <li class="project">
+                    <a href="#" title="Open working group page">RSH</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                  <li class="project">
+                    <a href="#" title="Open working group page">WASH</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="body-card">
+                <h3>How it shows up on the working group page</h3>
+                <p>
+                  The page will explicitly list implementation SOPs, CM partners, and reporting formats used to aggregate outputs and outcomes back to funders.
+                </p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 4) Climate Change -->
+        <details class="theme">
+          <summary>
+            <div class="theme-title">
+              <h2>Climate Change</h2>
+              <div class="meta">
+                <span class="chip">Working group</span>
+                <span class="chip">Climate transitions</span>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+
+          <div class="theme-body">
+            <div class="body-grid">
+              <div class="body-card">
+                <h3>Projects under this theme</h3>
+                <ul class="project-list">
+                  <li class="project">
+                    <a href="#" title="Open working group page">Climate I</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                  <li class="project">
+                    <a href="#" title="Open working group page">Climate is Everybody&apos;s Business</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                  <li class="project">
+                    <a href="#" title="Open working group page">UNICEF (Climate)</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="body-card">
+                <h3>Typical intervention style</h3>
+                <p>
+                  Broadcast series + hyperlocal activation + narrowcast formats, with monitoring and publication designed from day one.
+                </p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 5) Financial Inclusion -->
+        <details class="theme">
+          <summary>
+            <div class="theme-title">
+              <h2>Financial Inclusion</h2>
+              <div class="meta">
+                <span class="chip">Working group</span>
+                <span class="chip">Household resilience</span>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+
+          <div class="theme-body">
+            <div class="body-grid">
+              <div class="body-card">
+                <h3>Projects under this theme</h3>
+                <ul class="project-list">
+                  <li class="project">
+                    <a href="#" title="Open working group page">Financial Inclusion Project</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="body-card">
+                <h3>Partner-facing outputs</h3>
+                <p>
+                  Campaign playbooks, station SOPs, activation guides, and comparable reporting that supports publication by stations and SMART.
+                </p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 6) Agriculture -->
+        <details class="theme">
+          <summary>
+            <div class="theme-title">
+              <h2>Agriculture</h2>
+              <div class="meta">
+                <span class="chip">Working group</span>
+                <span class="chip">To be expanded</span>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+
+          <div class="theme-body">
+            <div class="body-grid">
+              <div class="body-card">
+                <h3>Projects under this theme</h3>
+                <p>
+                  Add agriculture working group projects here when ready (e.g., mechanisation, protein systems, input transitions, FPO-focused programmes).
+                </p>
+              </div>
+
+              <div class="body-card">
+                <h3>Placeholder structure</h3>
+                <p>
+                  This theme card is live so you can populate it gradually without changing the page architecture.
+                </p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 7) Digital & Media Literacy -->
+        <details class="theme">
+          <summary>
+            <div class="theme-title">
+              <h2>Digital &amp; Media Literacy</h2>
+              <div class="meta">
+                <span class="chip">Working group</span>
+                <span class="chip">Trust & adoption</span>
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </summary>
+
+          <div class="theme-body">
+            <div class="body-grid">
+              <div class="body-card">
+                <h3>Projects under this theme</h3>
+                <ul class="project-list">
+                  <li class="project">
+                    <a href="#" title="Open working group page">AI</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                  <li class="project">
+                    <a href="#" title="Open working group page">Disinformation / Misinformation</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                  <li class="project">
+                    <a href="#" title="Open working group page">Online Scams</a>
+                    <small>Working Group Page →</small>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="body-card">
+                <h3>What makes this theme different</h3>
+                <p>
+                  This working group can combine community media implementation with decision-support tools (via Civic Games Lab) where useful.
+                </p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="inner">
+      <div>© <span id="year"></span> SMART</div>
+      <div>Programmes are organised by themes and delivered through working groups.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Optional: allow only one theme to be open at a time
+    const details = document.querySelectorAll("details.theme");
+    details.forEach((target) => {
+      target.addEventListener("toggle", () => {
+        if (target.open) {
+          details.forEach((d) => { if (d !== target) d.open = false; });
+        }
+      });
+    });
+  </script>
+
+<script>
+const hamburger=document.getElementById('hamburger');const nav=document.getElementById('nav');const verticalsDropdown=document.getElementById('verticalsDropdown');if(hamburger){hamburger.addEventListener('click',()=>{nav.classList.toggle('active');hamburger.setAttribute('aria-expanded',hamburger.getAttribute('aria-expanded')==='false'?'true':'false');});nav.querySelectorAll('a').forEach(link=>{link.addEventListener('click',()=>{nav.classList.remove('active');hamburger.setAttribute('aria-expanded','false');});});if(verticalsDropdown){const button=verticalsDropdown.querySelector('button');button.addEventListener('click',(e)=>{if(window.innerWidth<=768){e.preventDefault();verticalsDropdown.classList.toggle('active');}});}}
+</script>
+
+</body>
+</html>

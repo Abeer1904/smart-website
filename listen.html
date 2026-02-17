@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Listen | SMART</title>
+
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b0f18; --muted:#4a5568; --subtle:#6b7280;
+      --border:#e5e7eb; --soft:#f7f7fb; --soft2:#f3f4f6;
+      --radius:18px; --shadow:0 8px 22px rgba(15,23,42,.08);
+      --max:1160px; --pad:clamp(18px,4vw,40px);
+      --font:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:var(--font); color:var(--text); background:var(--bg); line-height:1.5;}
+
+    .topbar{border-bottom:1px solid var(--border); background:rgba(255,255,255,.92); backdrop-filter:blur(10px); position:sticky; top:0; z-index:20;}
+    .topbar .inner{max-width:var(--max); margin:0 auto; padding:14px var(--pad); display:flex; align-items:center; justify-content:space-between; gap:14px;}
+    .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:750;}
+    .brand .dot{width:10px; height:10px; border-radius:50%; background:#111827; box-shadow:0 0 0 4px rgba(17,24,39,.10);}
+    .nav{display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end;}
+    .nav a,.nav button{color:var(--muted); text-decoration:none; font-size:14px; padding:8px 10px; border-radius:10px; background:transparent; border:0; cursor:pointer;}
+    .nav a:hover,.nav button:hover{background:var(--soft2); color:var(--text);}
+    .dropdown{position:relative;}
+    .menu{position:absolute; right:0; top:38px; min-width:220px; background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:8px; display:none; z-index:50;}
+    .menu a{display:block; padding:10px 10px; border-radius:12px; color:var(--text);}
+    .menu a:hover{background:var(--soft);}
+    .dropdown:focus-within .menu,.dropdown:hover .menu{display:block;}
+
+    section{padding:clamp(34px,6vw,70px) 0;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad);}
+    .kicker{text-transform:uppercase; letter-spacing:.12em; font-size:12px; color:var(--subtle); margin:0 0 10px 0;}
+    h1{font-size:clamp(30px,4vw,46px); line-height:1.12; margin:0 0 14px 0; letter-spacing:-.02em;}
+    h2{font-size:clamp(22px,2.6vw,30px); margin:0 0 12px 0;}
+    p{margin:0 0 12px 0; color:var(--muted); font-size:16px;}
+    .lead{font-size:18px; max-width:80ch;}
+
+    .grid{display:grid; grid-template-columns:1.1fr .9fr; gap:16px; margin-top:18px;}
+    @media(max-width:900px){.grid{grid-template-columns:1fr;}}
+
+    .panel{border:1px solid var(--border); border-radius:var(--radius); background:#fff; box-shadow:var(--shadow); padding:18px;}
+    .map{border:1px solid var(--border); border-radius:var(--radius); background:var(--soft2); min-height:360px; display:grid; place-items:center; color:var(--subtle); text-align:center; padding:18px;}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
+    select{padding:10px 12px; border:1px solid var(--border); border-radius:12px; background:#fff; color:var(--text); font-size:14px;}
+    .btn{display:inline-flex; align-items:center; justify-content:center; padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:var(--soft); color:var(--text); text-decoration:none; font-size:13.5px; font-weight:650;}
+    .btn.primary{background:#111827; color:#fff; border-color:#111827;}
+
+    .station{border:1px solid var(--border); border-radius:14px; background:var(--soft); padding:12px; display:grid; gap:6px; margin-top:10px;}
+    .station strong{font-size:14px;}
+    .station span{font-size:13px; color:var(--subtle);}
+
+    .player{
+      border:1px dashed var(--border);
+      border-radius:14px;
+      padding:14px;
+      background:#fff;
+      color:var(--subtle);
+      margin-top:12px;
+    }
+
+    footer{border-top:1px solid var(--border); padding:22px 0; background:#fff;}
+    footer .inner{max-width:var(--max); margin:0 auto; padding:0 var(--pad); color:var(--subtle); font-size:13px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+
+    .hamburger{display:none;flex-direction:column;gap:6px;background:transparent;border:0;cursor:pointer;padding:8px 10px;}
+    .hamburger span{width:24px;height:2px;background:var(--text);transition:0.3s;}
+    @media(max-width:768px){
+      .hamburger{display:flex;}
+      .topbar .nav{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);flex-direction:column;padding:16px var(--pad);gap:8px;z-index:40;}
+      .topbar .nav.active{display:flex;}
+      .topbar .nav a, .topbar .nav button{padding:12px;font-size:15px;}
+      .topbar .nav > div{position:relative;}
+      .topbar .nav > div > div[role="menu"]{position:static;background:transparent;border:none;box-shadow:none;padding:0 0 0 16px;margin-top:8px;display:none;}
+      .topbar .nav > div.active > div[role="menu"]{display:flex;flex-direction:column;}
+      p{font-size:clamp(14px,4vw,16px);}
+      label{font-size:14px;}
+      input, select, textarea{font-size:15px;padding:12px 14px;}
+      section{padding:clamp(24px,5vw,50px) 0;}
+    }
+    @media(max-width:480px){
+      section{padding:clamp(20px,5vw,36px) 0;}
+      h1{font-size:clamp(24px,3.5vw,32px);}
+      p{font-size:15px;}
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="inner">
+    <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span><span>SMART</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+
+      <a href="community-media-ecosystem.html">Ecosystem</a>
+      <a href="community-media-alliance.html">Alliance</a>
+
+      <a href="programmes.html">Programmes</a>
+      <a href="research.html">Research</a>
+      <a href="listen.html" style="color:var(--text); background:var(--soft2);">Listen</a>
+
+      <div class="dropdown" id="verticalsDropdown">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Verticals</button>
+        <div class="menu" role="menu" aria-label="Verticals">
+          <a role="menuitem" href="radio-mewat.html">Radio Mewat</a>
+          <a role="menuitem" href="civic-games-lab.html">Civic Games Lab</a>
+          <a role="menuitem" href="radio-festival.html">The Radio Festival</a>
+        </div>
+      </div>
+
+      <a href="partner.html">Partner</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="kicker">Listen</p>
+    <h1>Listen to community media programming</h1>
+    <p class="lead">
+      Placeholder experience. This will become a single place to access live streams (where available) and uploaded programmes from community media organisations.
+    </p>
+
+    <div class="grid">
+      <div class="panel">
+        <h2>Browse by state</h2>
+        <p>Select a state to see participating stations. Streaming depends on whether a station has an online feed or uploads programming.</p>
+
+        <div class="row">
+          <label for="state" class="sr-only" style="position:absolute;left:-9999px;">State</label>
+          <select id="state">
+            <option value="">Select a state (placeholder)</option>
+            <option>Haryana</option>
+            <option>Bihar</option>
+            <option>Uttar Pradesh</option>
+            <option>Madhya Pradesh</option>
+            <option>Tamil Nadu</option>
+          </select>
+          <a class="btn" href="#">Apply (later)</a>
+        </div>
+
+        <div class="station">
+          <strong>Radio Mewat</strong>
+          <span>Nuh (Mewat), Haryana • 90.4 FM • Stream/episodes: placeholder</span>
+          <div class="row">
+            <a class="btn primary" href="radio-mewat.html">Open station page</a>
+            <a class="btn" href="#">Play (disabled)</a>
+          </div>
+        </div>
+
+        <div class="station">
+          <strong>Example Station (placeholder)</strong>
+          <span>State • Frequency • Stream/episodes: placeholder</span>
+          <div class="row">
+            <a class="btn" href="#">Open station page (later)</a>
+            <a class="btn" href="#">Play (disabled)</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="panel">
+        <h2>Player</h2>
+        <p>This module will play either a live stream URL (Icecast/Shoutcast/HLS) or an uploaded episode.</p>
+        <div class="player">
+          Player placeholder. When a stream URL exists, we will embed an HTML5 audio player here.
+        </div>
+
+        <h2 style="margin-top:18px;">Stations: Upload programmes</h2>
+        <p>Placeholder for a future upload portal. Until the portal exists, programmes can be manually added by SMART staff.</p>
+        <div class="row">
+          <a class="btn primary" href="partner.html">Partner / Join onboarding</a>
+          <a class="btn" href="#">Upload portal (later)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <div>© <span id="year"></span> SMART</div>
+    <div>Listen</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+<script>
+const hamburger=document.getElementById('hamburger');const nav=document.getElementById('nav');const verticalsDropdown=document.getElementById('verticalsDropdown');if(hamburger){hamburger.addEventListener('click',()=>{nav.classList.toggle('active');hamburger.setAttribute('aria-expanded',hamburger.getAttribute('aria-expanded')==='false'?'true':'false');});nav.querySelectorAll('a').forEach(link=>{link.addEventListener('click',()=>{nav.classList.remove('active');hamburger.setAttribute('aria-expanded','false');});});if(verticalsDropdown){const button=verticalsDropdown.querySelector('button');button.addEventListener('click',(e)=>{if(window.innerWidth<=768){e.preventDefault();verticalsDropdown.classList.toggle('active');}});}};
+</script>
+
+</body>
+</html>

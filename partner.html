@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Partner | SMART</title>
+
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b0f18; --muted:#4a5568; --subtle:#6b7280;
+      --border:#e5e7eb; --soft:#f7f7fb; --soft2:#f3f4f6;
+      --radius:18px; --shadow:0 8px 22px rgba(15,23,42,.08);
+      --max:920px; --pad:clamp(18px,4vw,40px);
+      --font:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    *{box-sizing:border-box}
+    body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.5}
+
+    section{padding:clamp(36px,6vw,78px) 0}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+    h1{font-size:clamp(28px,4vw,40px);margin:0 0 14px 0}
+    p{color:var(--muted);margin:0 0 16px 0}
+
+    form{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:24px;
+      background:#fff;
+      box-shadow:var(--shadow);
+      display:grid;
+      gap:16px;
+    }
+
+    label{
+      font-size:13px;
+      color:var(--subtle);
+      display:block;
+      margin-bottom:6px;
+    }
+
+    input, select, textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      font-size:14px;
+      font-family:var(--font);
+    }
+
+    textarea{min-height:120px;resize:vertical}
+
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    @media(max-width:700px){
+      .row{grid-template-columns:1fr}
+    }
+
+    .btn{
+      padding:12px 16px;
+      border-radius:12px;
+      border:1px solid #111827;
+      background:#111827;
+      color:#fff;
+      font-weight:650;
+      cursor:pointer;
+      width:fit-content;
+    }
+
+    .note{
+      font-size:13px;
+      color:var(--subtle);
+    }
+
+    /* Mobile hamburger menu */
+    .hamburger{display:none;flex-direction:column;gap:6px;background:transparent;border:0;cursor:pointer;padding:8px 10px;}
+    .hamburger span{width:24px;height:2px;background:var(--text);transition:0.3s;}
+
+    @media(max-width:768px){
+      .hamburger{display:flex;}
+      nav.nav{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        right:0;
+        background:#fff;
+        border-bottom:1px solid var(--border);
+        flex-direction:column;
+        padding:16px var(--pad);
+        gap:8px;
+        z-index:40;
+      }
+      nav.nav.active{display:flex;}
+      nav.nav a, nav.nav button{padding:12px;font-size:15px;}
+
+      /* Dropdown on mobile */
+      nav.nav > div{position:relative;}
+      nav.nav > div > div[role="menu"]{position:static;background:transparent;border:none;box-shadow:none;padding:0 0 0 16px;margin-top:8px;display:none;}
+      nav.nav > div.active > div[role="menu"]{display:flex;flex-direction:column;}
+
+      p{font-size:clamp(14px,4vw,16px);}
+      label{font-size:14px;}
+      input, select, textarea{font-size:15px;padding:12px 14px;}
+      section{padding:clamp(24px,5vw,50px) 0;}
+      .row{gap:18px;}
+    }
+
+    @media(max-width:480px){
+      section{padding:clamp(20px,5vw,36px) 0;}
+      h1{font-size:clamp(24px,3.5vw,32px);margin-bottom:12px;}
+      p{font-size:15px;margin-bottom:18px;}
+      form{padding:18px;gap:14px;}
+      label{margin-bottom:8px;}
+      .row{gap:14px;}
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="topbar" style="border-bottom:1px solid var(--border);background:rgba(255,255,255,.92);backdrop-filter:blur(10px);position:sticky;top:0;z-index:20;">
+  <div style="max-width:var(--max);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:14px;">
+    <a class="brand" href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:750;"><span style="width:10px;height:10px;border-radius:50%;background:#111827;box-shadow:0 0 0 4px rgba(17,24,39,.10);" aria-hidden="true"></span><span>SMART</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="Primary navigation" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end;">
+      <a href="index.html" style="color:var(--muted);text-decoration:none;font-size:14px;padding:8px 10px;border-radius:10px;">Home</a>
+
+      <a href="community-media-ecosystem.html" style="color:var(--muted);text-decoration:none;font-size:14px;padding:8px 10px;border-radius:10px;">Ecosystem</a>
+      <a href="community-media-alliance.html" style="color:var(--muted);text-decoration:none;font-size:14px;padding:8px 10px;border-radius:10px;">Alliance</a>
+
+      <a href="programmes.html" style="color:var(--muted);text-decoration:none;font-size:14px;padding:8px 10px;border-radius:10px;">Programmes</a>
+      <a href="research.html" style="color:var(--muted);text-decoration:none;font-size:14px;padding:8px 10px;border-radius:10px;">Research</a>
+      <a href="listen.html" style="color:var(--muted);text-decoration:none;font-size:14px;padding:8px 10px;border-radius:10px;">Listen</a>
+
+      <div id="verticalsDropdown" style="position:relative;">
+        <button type="button" aria-haspopup="true" aria-expanded="false" style="color:var(--muted);text-decoration:none;font-size:14px;padding:8px 10px;border-radius:10px;background:transparent;border:0;cursor:pointer;">Verticals</button>
+        <div role="menu" aria-label="Verticals" style="position:absolute;right:0;top:38px;min-width:220px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:8px;display:none;z-index:50;">
+          <a role="menuitem" href="radio-mewat.html" style="display:block;padding:10px 10px;border-radius:12px;color:var(--text);text-decoration:none;">Radio Mewat</a>
+          <a role="menuitem" href="civic-games-lab.html" style="display:block;padding:10px 10px;border-radius:12px;color:var(--text);text-decoration:none;">Civic Games Lab</a>
+          <a role="menuitem" href="radio-festival.html" style="display:block;padding:10px 10px;border-radius:12px;color:var(--text);text-decoration:none;">The Radio Festival</a>
+        </div>
+      </div>
+
+      <a href="partner.html" aria-current="page" style="color:var(--text);background:var(--soft2);text-decoration:none;font-size:14px;padding:8px 10px;border-radius:10px;">Partner</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h1>Partner with SMART</h1>
+    <p>
+      SMART works with funders, academic institutions, community media organisations, and implementation partners.
+      If you are looking to build or fund a programme through the Community Media Ecosystem or the Community Media Alliance,
+      submit your details below.
+    </p>
+
+    <form action="#" method="POST">
+      <div class="row">
+        <div>
+          <label>Full Name</label>
+          <input type="text" name="name" required>
+        </div>
+        <div>
+          <label>Organisation</label>
+          <input type="text" name="organisation" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Email</label>
+          <input type="email" name="email" required>
+        </div>
+        <div>
+          <label>Country</label>
+          <input type="text" name="country">
+        </div>
+      </div>
+
+      <div>
+        <label>Type of Partner</label>
+        <select name="partner_type" required>
+          <option value="">Select one</option>
+          <option>Funder / Philanthropy</option>
+          <option>Academic / Research Institution</option>
+          <option>Community Media Organisation</option>
+          <option>Corporate / Industry</option>
+          <option>Government</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Focus Area of Interest</label>
+        <select name="focus_area">
+          <option value="">Select one</option>
+          <option>Protein</option>
+          <option>Cities</option>
+          <option>Climate</option>
+          <option>Water</option>
+          <option>Agriculture</option>
+          <option>Gender</option>
+          <option>Digital & Media Literacy</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Brief Description of Interest</label>
+        <textarea name="message" placeholder="Describe your interest, funding scope, geography, or proposed collaboration."></textarea>
+      </div>
+
+      <button type="submit" class="btn">Submit</button>
+
+      <div class="note">
+        This form is currently a placeholder. Backend integration and data routing will be added.
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  // Hamburger menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('nav');
+  const verticalsDropdown = document.getElementById('verticalsDropdown');
+
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', hamburger.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');
+    });
+
+    // Close menu when a link is clicked
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Handle Verticals dropdown on mobile
+    if (verticalsDropdown) {
+      const verticalsButton = verticalsDropdown.querySelector('button');
+      verticalsButton.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          verticalsDropdown.classList.toggle('active');
+        }
+      });
+    }
+  }
+</script>
+
+</body>
+</html>
